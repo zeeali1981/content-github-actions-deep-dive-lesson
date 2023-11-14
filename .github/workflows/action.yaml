@@ -1,32 +1,45 @@
-name: Deploy my Lambda Function
 
-# trigger on all push events to main branch
-on: 
-  push:
-    branches:
-      - main
+name: Must run on custom runner
+
+on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  init:
+    runs-on: self-hosted
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install libraries
-        run: |
-            cd function
-            python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
-      - name: Create zip bundle
-        run: |
-            cd function
-            zip -r ../${{ github.sha }}.zip .
-      - name: Archive artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: zipped-bundle
-          path: ${{ github.sha }}.zip
+      - run: powershell.exe -ExecutionPolicy ByPass mkdir c:\test2
+      - run: powershell.exe -ExecutionPolicy ByPass ipconfig /all
+
+
+#name: Deploy my Lambda Function
+
+# trigger on all push events to main branch
+#on: 
+#  push:
+#    branches:
+#      - main
+
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out code
+#        uses: actions/checkout@v2
+#      - name: Set up Python
+#        uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - name: Install libraries
+#        run: |
+#            cd function
+#            python -m pip install --upgrade pip
+#            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
+#      - name: Create zip bundle
+#        run: |
+#            cd function
+#            zip -r ../${{ github.sha }}.zip .
+#      - name: Archive artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: zipped-bundle
+#          path: ${{ github.sha }}.zip
