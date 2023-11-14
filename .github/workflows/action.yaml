@@ -7,8 +7,9 @@ jobs:
   init:
     runs-on: self-hosted
     steps:
-      - run: powershell.exe -ExecutionPolicy ByPass mkdir c:\dele_directory
-      - run: powershell.exe -ExecutionPolicy ByPass ipconfig /all
+      #- run: powershell.exe -ExecutionPolicy ByPass mkdir c:\dele_directory
+      #- run: powershell.exe -ExecutionPolicy ByPass ipconfig /all
+       - run: dotnet tool install -g microsoft.sqlpackage
 
 
 #name: Deploy my Lambda Function
